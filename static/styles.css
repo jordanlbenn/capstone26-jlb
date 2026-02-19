@@ -1,0 +1,31 @@
+body {
+    font-family: Helvetica, sans-serif;
+    color: white;
+    background: #347943;
+}
+
+.wizard-container {
+    width: 700px;
+    margin: auto;
+    background: rgb(255, 255, 255);
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.step {
+    display: none;
+}
+
+.step.active {
+    display: block;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+}
+
+select {
+    width: 100%;
+    padding: 8px;
+}

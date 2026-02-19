@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Hybrid Cryptographic Decisions Wizard</title>
+    <link rel="stylesheet" type="text/css"href="static\styles.css">
+</head>
+
+<body>
+
+<div class="wiz-container">
+    <h1>Hybrid Cryptographic Decisions Wizard</h1>
+    <h2>Enterprise-grade cryptographic algorithm selection for security professionals</h2>
+</div>
+
+<section class="step active" id="step1">
+        <h3>Step 1: Use Case & Environment</h3>
+        <p>Define your encryption scenario</p>
+        <label>Primary Use Case</label>
+        <select id="useCase">
+            <option value="rest">Data at Rest</option>
+            <option value="transit">Data in Transit</option>
+            <option value="key_exchange">Key Exchange / Agreement</option>
+        </select>
+
+        <label>Data Sensitivity</label>
+        <select id="sensitivity">
+            <option value="public">Public</option>
+            <option value="internal">Internal</option>
+            <option value="confidential">Confidential</option>
+            <option value="high">Top Secret / Highly Sensitive</option>
+        </select>
+        
+        <label>Deployment Environment</label>
+        <select id="deployment">
+            <option value="public">Public Cloud</option>
+            <option value="private">Private Cloud</option>
+            <option value="on-premises">On-Premises</option>
+        </select>
+</section>
+
+<section class="step active" id="step2">
+        <h3>Step 2: Threat Model</h3>
+        <p>Assess potential threats and security requirements</p>
+        <label>Expected Threat Level</label>
+        <select id="threatLevel">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+            <option value="critical">Critical</option>
+        </select>
+
+        <label>Adversary Capabilities</label>
+        <select id="adversary">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+            <option value="advanced">Nation-State Level</option>
+            <option value="unknown">Future Quantum Computing Threats</option>
+        </select>
+        
+        <label>Required Data Protection Timeframe</label>
+        <select id="timeframe">
+            <option value="short">Short-term (1-2 years)</option>
+            <option value="medium">Medium-term (3-5 years)</option>
+            <option value="long">Long-term (5+ years)</option>
+        </select>
+</section>
+
+<section class="step active" id="step3">
+        <h3>Step 3: Performance Requirements</h3>
+        <p>Define your performance constraints</p>
+        <label>Performance vs Security Priority</label>
+        <select id="performancepriority">
+            <option value="optimized">Performance Optimized</option>
+            <option value="balanced">Balanced</option>
+            <option value="securityop">Security Optimized</option>
+        </select>
+
+        <label>Hardware Capabilities</label>
+        <select id="hardware">
+            <option value="resourcecon">Resource Constrained</option>
+            <option value="standard">Standard Computing</option>
+            <option value="acceleration">Hardware Acceleration Available</option>
+        </select>
+        
+        <label>Expected Data Volume (Throughput)</label>
+        <select id="dataVolume">
+            <option value="small">Low Volume (less than 1 MB/s) </option>
+            <option value="medium">Medium Volume (1-100 MB/s)</option>
+            <option value="high">High Volume (100 MB/s - 1GB/s)</option>
+            <option value="veryhigh">Very High Volume (1GB/s+)</option>
+        </select>
+</section>
+
+<section class="step active" id="step4">
+        <h3>Step 4: Compliance</h3>
+        <p>Define your compliance & regulatory requirements</p>
+        <label>Regulatory & Compliance Requirements</label>
+        <select id="compliance">
+            <option value="federal">FIPS 140-2/3</option>
+            <option value="payment">PCI-DSS</option>
+            <option value="medical">HIPAA</option><option value="federal">FIPS 140-2/3</option>
+            <option value="nist">NIST Cybersecurity Framework</option>
+            <option value="iso">ISO/IEC 27001</option>
+        </select>
+
+        <label>Additional Security Features</label>
+        <select id="addsecurity">
+            <option value="postquantum">Post-Quantum Cryptography</option>
+            <option value="perfect">Perfect Forward Secrecy</option>
+            <option value="none">None</option>
+        </select>
+</section>
+
+<button type="button" id="generateResult">Generate Recommendation</button>
+<div id="resultBox"></div>
+
+<script src="static\wizard.js"></script>
+</body>
