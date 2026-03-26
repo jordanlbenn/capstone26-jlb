@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+<h2>Step 1: Use Case & Environment</h2>
+
+<form method="POST">
+
+    <!-- Use Case -->
+    <label><strong>Use Case</strong></label>
+    <div class="option-group">
+        <label class="option">
+            <input type="radio" name="use_case" value="rest" required>
+            <span>Data at Rest</span>
+        </label>
+
+        <label class="option">
+            <input type="radio" name="use_case" value="transit">
+            <span>Data in Transit</span>
+        </label>
+
+        <label class="option">
+            <input type="radio" name="use_case" value="key_exchange">
+            <span>Key Exchange / Agreement</span>
+        </label>
+    </div>
+
+    <br>
+
+    <!-- Data Sensitivity -->
+    <label><strong>Data Sensitivity</strong></label>
+    <div class="option-group">
+        <label class="option">
+            <input type="radio" name="sensitivity" value="public" required>
+            <span>Public</span>
+        </label>
+
+        <label class="option">
+            <input type="radio" name="sensitivity" value="internal">
+            <span>Internal</span>
+        </label>
+
+        <label class="option">
+            <input type="radio" name="sensitivity" value="confidential">
+            <span>Confidential</span>
+        </label>
+
+        <label class="option">
+            <input type="radio" name="sensitivity" value="high">
+            <span>Top Secret / Highly Sensitive</span>
+        </label>
+    </div>
+
+    <br>
+
+    <!-- Deployment Environment -->
+    <label><strong>Deployment Environment</strong></label>
+    <div class="option-group">
+        <label class="option">
+            <input type="radio" name="deployment" value="public" required>
+            <span>Public Cloud</span>
+        </label>
+
+        <label class="option">
+            <input type="radio" name="deployment" value="private">
+            <span>Private Cloud</span>
+        </label>
+
+        <label class="option">
+            <input type="radio" name="deployment" value="on-premises">
+            <span>On-Premises</span>
+        </label>
+    </div>
+
+    <br><br>
+
+
+<div class="button-group">
+    <button type="submit" class="btn">Next</button>
+</div>
+
+</form>
+</body>

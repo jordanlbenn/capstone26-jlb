@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+<h2>Step 4: Compliance</h2>
+<form method="POST">
+<h3>Define your compliance & regulatory requirements</h3>
+
+<label><strong>Regulatory & Compliance Requirements</strong></label>
+<div class="option-group">
+    <label class="option">
+        <input type="radio" name="compliance" value="federal" required>
+        <span>FIPS 140-2/3</span>
+    </label>
+
+    <label class="option">
+        <input type="radio" name="compliance" value="payment">
+        <span>PCI-DSS</span>
+    </label>
+
+    <label class="option">
+        <input type="radio" name="compliance" value="medical">
+        <span>HIPAA</span>
+    </label>
+
+    <label class="option">
+        <input type="radio" name="compliance" value="nist">
+        <span>NIST Cybersecurity Framework</span>
+    </label>
+
+    <label class="option">
+        <input type="radio" name="compliance" value="iso">
+        <span>ISO/IEC 27001</span>
+    </label>
+
+    <label class="option">
+        <input type="radio" name="compliance" value="none">
+        <span>None</span>
+    </label>
+</div>
+
+<br>
+
+<label><strong>Additional Security Features</strong></label>
+<div class="option-group">
+    <label class="option">
+        <input type="radio" name="addsecurity" value="postquantum" required>
+        <span>Post-Quantum Cryptography</span>
+    </label>
+
+    <label class="option">
+        <input type="radio" name="addsecurity" value="perfect">
+        <span>Perfect Forward Secrecy</span>
+    </label>
+
+    <label class="option">
+        <input type="radio" name="addsecurity" value="none">
+        <span>None</span>
+    </label>
+</div>
+
+<br><br>
+
+<div class="button-group">
+    <a href="{{ url_for('step3') }}" class="btn">Back</a>
+    <button type="submit" class="btn">Next</button>
+</div>
+
+</form>
+</body>

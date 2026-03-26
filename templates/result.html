@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Your Encryption Recommendation</h2>
+
+    <!-- Main Result -->
+    <div class="result-box">
+        <h1>{{ method }}</h1>
+    </div>
+
+    <!-- Reasons -->
+    <div class="section">
+        <h3>Why this was chosen:</h3>
+        <ul>
+            {% for r in reasons %}
+                <li>{{ r }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Score Breakdown -->
+    <div class="section">
+        <h3>Score Breakdown:</h3>
+
+        <div class="score-item">
+            <span>Lightweight Encryption</span>
+            <span>{{ scores["Lightweight Encryption"] }}</span>
+        </div>
+
+        <div class="score-item">
+            <span>Standard AES</span>
+            <span>{{ scores["Standard AES Encryption"] }}</span>
+        </div>
+
+        <div class="score-item">
+            <span>High-Security AES</span>
+            <span>{{ scores["High-Security AES"] }}</span>
+        </div>
+
+        <div class="score-item">
+            <span>Hybrid</span>
+            <span>{{ scores["Hybrid Encryption (AES + RSA)"] }}</span>
+        </div>
+
+        <div class="score-item">
+            <span>Post-Quantum</span>
+            <span>{{ scores["Post-Quantum Ready Encryption"] }}</span>
+        </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="button-group">
+        <a href="{{ url_for('home') }}" class="btn">Start Over</a>
+    </div>
+
+</div>
+
+</body>
+</html>

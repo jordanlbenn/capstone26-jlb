@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+<h2>Step 2: Threat Model</h2>
+<form method="POST">
+
+<label><strong>Threat Model</strong></label>
+<div class="option-group">
+    <label class="option">
+        <input type="radio" name="threat_model" value="low" required>
+        <span>Low</span>
+    </label>
+
+    <label class="option">
+        <input type="radio" name="threat_model" value="medium">
+        <span>Medium</span>
+    </label>
+
+    <label class="option">
+        <input type="radio" name="threat_model" value="high">
+        <span>High</span>
+    </label>
+
+    <label class="option">
+        <input type="radio" name="threat_model" value="critical">
+        <span>Critical</span>
+    </label>
+</div>
+
+<br>
+
+<label><strong>Adversary Capabilities</strong></label>
+<div class="option-group">
+    <label class="option">
+        <input type="radio" name="adversary" value="low" required>
+        <span>Low</span>
+    </label>
+
+    <label class="option">
+        <input type="radio" name="adversary" value="medium">
+        <span>Medium</span>
+    </label>
+
+    <label class="option">
+        <input type="radio" name="adversary" value="high">
+        <span>High</span>
+    </label>
+
+    <label class="option">
+        <input type="radio" name="adversary" value="advanced">
+        <span>Nation-State Level</span>
+    </label>
+
+    <label class="option">
+        <input type="radio" name="adversary" value="quantum">
+        <span>Future Quantum Computing Threats</span>
+    </label>
+</div>
+
+<br>
+
+<label><strong>Required Data Protection Timeframe</strong></label>
+<div class="option-group">
+    <label class="option">
+        <input type="radio" name="timeframe" value="short" required>
+        <span>Short-term (1–2 years)</span>
+    </label>
+
+    <label class="option">
+        <input type="radio" name="timeframe" value="medium">
+        <span>Medium-term (3–5 years)</span>
+    </label>
+
+    <label class="option">
+        <input type="radio" name="timeframe" value="long">
+        <span>Long-term (5+ years)</span>
+    </label>
+</div>
+
+<br><br>
+
+<div class="button-group">
+    <a href="{{ url_for('step1') }}" class="btn">Back</a>
+    <button type="submit" class="btn">Next</button>
+</div>
+
+</form>
+</body>
