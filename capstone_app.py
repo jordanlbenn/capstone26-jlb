@@ -108,5 +108,35 @@ def result():
         scores=scores,
         reasons=reasons
     )
+
+from flask import request, send_file
+import os
+
+@app.route('/process_file', methods=['POST'])
+def process_file():
+    uploaded_file = request.files['file']
+    method = request.form.get('method')
+
+    if uploaded_file.filename == '':
+        return "No file selected"
+
+    filepath = os.path.join("uploads", uploaded_file.filename)
+    uploaded_file.save(filepath)
+
+    # Apply encryption based on method
+    if method == "Lightweight Encryption":
+        result_path = encrypt_xor(filepath)
+
+    elif method == "Standard AES Encryption":
+        result_path = encrypt_aes(filepath)
+
+    elif method == "Hybrid Encryption (AES + RSA)":
+        result_path = encrypt_hybrid(filepath)
+
+    else:
+        result_path = filepath
+
+    return send_file(result_path, as_attachment=True)
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)

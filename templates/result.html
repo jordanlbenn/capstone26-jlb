@@ -59,8 +59,47 @@
     <div class="button-group">
         <a href="{{ url_for('home') }}" class="btn">Start Over</a>
     </div>
-
 </div>
+
+<h3>Apply Encryption</h3>
+
+<form action="{{ url_for('process_file') }}" method="POST" enctype="multipart/form-data">
+
+    <!-- File Upload -->
+    <label>Select File:</label>
+    <input type="file" name="file" required>
+
+    <br><br>
+
+    <!-- Encryption Choice -->
+    <label>Choose Encryption Method:</label>
+
+    <div class="option-group">
+        <label class="option">
+            <input type="radio" name="method" value="{{ method }}" checked>
+            <span>Use Recommended ({{ method }})</span>
+        </label>
+
+        <label class="option">
+            <input type="radio" name="method" value="Lightweight Encryption">
+            <span>Lightweight Encryption</span>
+        </label>
+
+        <label class="option">
+            <input type="radio" name="method" value="Standard AES Encryption">
+            <span>Standard AES</span>
+        </label>
+
+        <label class="option">
+            <input type="radio" name="method" value="Hybrid Encryption (AES + RSA)">
+            <span>Hybrid Encryption</span>
+        </label>
+    </div>
+
+    <br>
+
+    <button type="submit" class="btn">Encrypt File</button>
+</form>
 
 </body>
 </html>
