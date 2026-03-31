@@ -1,2 +1,3 @@
 # capstone26-jlb
-A Flask-based cryptographic recommendation and attack simulation platform that evaluates hybrid encryption strategies and demonstrates real-world security tradeoffs through encryption testing and simulated attack analysis.
+
+This project is a Flask-based web application that analyzes user-defined security requirements and recommends appropriate encryption strategies. It is designed to bridge the gap between theoretical cryptography concepts and real-world implementation by combining decision-making logic with applied encryption functionality.
