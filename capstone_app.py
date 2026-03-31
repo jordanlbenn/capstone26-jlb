@@ -1,9 +1,25 @@
-from flask import Flask, render_template, request, redirect, session, url_for, send_from_directory
+from flask import Flask, render_template, request, redirect, session, url_for, send_file
 from werkzeug.utils import secure_filename
 import os
 
+# NEW: database imports
+import sqlite3
+import json
+
+#Encryption algorithm imports
+from custom_cipher import encrypt_xor_file, decrypt_xor_file
+from aes_test_fernet import encrypt_aes_file, decrypt_aes_file 
+
 app = Flask(__name__)
 app.secret_key = 'test_secret_key'
+
+# NEW: database helper
+def get_db():
+    return sqlite3.connect('database.db')
+
+# NEW: ensure folders exist
+os.makedirs("uploads", exist_ok=True)
+os.makedirs("encrypted", exist_ok=True)
 
 #Home
 @app.route('/')
@@ -65,7 +81,7 @@ def result():
     compliance = session.get('compliance')
     addsecurity = session.get('addsecurity')
 
-    # Scoring system
+    # Scoring system (UNCHANGED)
     scores = {
         "Lightweight Encryption": 0,
         "Standard AES Encryption": 0,
@@ -76,7 +92,6 @@ def result():
 
     reasons = []
 
-    # Logic
     if sensitivity in ["confidential", "high"]:
         scores["High-Security AES"] += 2
         scores["Hybrid Encryption (AES + RSA)"] += 2
@@ -103,32 +118,64 @@ def result():
     # Pick best option
     method = max(scores, key=scores.get)
 
+    # =========================
+    # NEW: SAVE QUIZ TO DATABASE
+    # =========================
+    conn = get_db()
+    cursor = conn.cursor()
+
+    answers = {
+        "use_case": use_case,
+        "sensitivity": sensitivity,
+        "environment": environment,
+        "threat_model": threat_model,
+        "adversary": adversary,
+        "timeframe": timeframe,
+        "performance": performance,
+        "hardware": hardware,
+        "dataVolume": dataVolume,
+        "compliance": compliance,
+        "addsecurity": addsecurity
+    }
+
+    cursor.execute('''
+        INSERT INTO quiz_results (answers, recommended_method)
+        VALUES (?, ?)
+    ''', (json.dumps(answers), method))
+
+    conn.commit()
+    quiz_id = cursor.lastrowid
+    conn.close()
+
     return render_template('result.html',
         method=method,
         scores=scores,
-        reasons=reasons
+        reasons=reasons,
+        quiz_id=quiz_id  # NEW
     )
 
-from flask import request, send_file
-import os
-
+# =========================
+# FILE PROCESSING
+# =========================
 @app.route('/process_file', methods=['POST'])
 def process_file():
     uploaded_file = request.files['file']
     method = request.form.get('method')
+    quiz_id = request.form.get('quiz_id')  # NEW
 
     if uploaded_file.filename == '':
         return "No file selected"
 
-    filepath = os.path.join("uploads", uploaded_file.filename)
+    filename = secure_filename(uploaded_file.filename)
+    filepath = os.path.join("uploads", filename)
     uploaded_file.save(filepath)
 
     # Apply encryption based on method
     if method == "Lightweight Encryption":
-        result_path = encrypt_xor(filepath)
+        result_path = encrypt_xor_file(filepath, key="userkey123")
 
     elif method == "Standard AES Encryption":
-        result_path = encrypt_aes(filepath)
+        result_path = encrypt_aes_file(filepath, password="userkey123")
 
     elif method == "Hybrid Encryption (AES + RSA)":
         result_path = encrypt_hybrid(filepath)
@@ -136,7 +183,21 @@ def process_file():
     else:
         result_path = filepath
 
+    # =========================
+    # NEW: SAVE FILE RECORD
+    # =========================
+    conn = get_db()
+    conn.execute('''
+        INSERT INTO files (quiz_id, filename, method, filepath)
+        VALUES (?, ?, ?, ?)
+    ''', (quiz_id, filename, method, result_path))
+    conn.commit()
+    conn.close()
+
     return send_file(result_path, as_attachment=True)
 
+# =========================
+# RUN APP
+# =========================
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)

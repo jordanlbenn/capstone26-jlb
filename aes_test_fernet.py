@@ -1,25 +1,58 @@
-#AES Fernet
+# aes.py
 from cryptography.fernet import Fernet
 import base64
 import hashlib
+import os
 
-def derive_key(password): #Derive a key from the password using SHA-256 and encode it in base64 for Fernet
+def derive_key(password):
+    """
+    Derive a 32-byte key from password for Fernet.
+    """
     hashed = hashlib.sha256(password.encode()).digest()
     return base64.urlsafe_b64encode(hashed)
 
+def encrypt_aes_file(filepath, password):
+    """
+    Encrypt a file using Fernet AES encryption with a password.
+    Returns path to encrypted file.
+    """
+    key = derive_key(password)
+    cipher = Fernet(key)
 
-plaintext = input("\nEnter text to encrypt (AES): ")
-password = input("Enter key: ")
+    with open(filepath, 'rb') as f:
+        data = f.read()
 
-key = derive_key(password)
-cipher = Fernet(key)
+    encrypted = cipher.encrypt(data)
 
-data = plaintext.encode()
+    # Save encrypted file in "encrypted" folder
+    os.makedirs("encrypted", exist_ok=True)
+    filename = os.path.basename(filepath)
+    encrypted_path = os.path.join("encrypted", filename + ".aes")
 
-encrypted = cipher.encrypt(data)
-decrypted = cipher.decrypt(encrypted)
+    with open(encrypted_path, 'wb') as f:
+        f.write(encrypted)
 
-print("\n--- AES (Fernet) ---")
-print("Encrypted:", encrypted.decode())
-print("Decrypted:", decrypted.decode())
-print("Correct:", decrypted == data)
+    return encrypted_path
+
+def decrypt_aes_file(filepath, password):
+    """
+    Decrypt a file encrypted with encrypt_aes_file using the same password.
+    Returns path to decrypted file.
+    """
+    key = derive_key(password)
+    cipher = Fernet(key)
+
+    with open(filepath, 'rb') as f:
+        encrypted_data = f.read()
+
+    decrypted = cipher.decrypt(encrypted_data)
+
+    # Save decrypted file in "decrypted" folder
+    os.makedirs("decrypted", exist_ok=True)
+    filename = os.path.basename(filepath).replace(".aes", "")
+    decrypted_path = os.path.join("decrypted", filename)
+
+    with open(decrypted_path, 'wb') as f:
+        f.write(decrypted)
+
+    return decrypted_path
