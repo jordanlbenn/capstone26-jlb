@@ -1,61 +1,83 @@
 body {
-    font-family: Helvetica, sans-serif;
-    color: rgb(0, 0, 0);
-    background: #b8fac7;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #e2e8f0;
+    margin: 0;
 }
 
-.wizard-container {
-    width: 700px;
-    margin: auto;
-    background: rgb(255, 255, 255);
+.container {
+    max-width: 800px;
+    margin: 40px auto;
     padding: 30px;
-    border-radius: 10px;
+    background: rgba(30, 41, 59, 0.8);
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
 }
 
-.step {
-    display: none;
+h1, h2, h3 {
+    text-align: center;
+    color: #f1f5f9;
 }
 
-.step.active {
-    display: block;
+.result-box {
+    text-align: center;
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 12px;
+    margin: 20px 0;
+    border: 1px solid #334155;
 }
 
-label {
-    display: block;
-    margin-top: 15px;
-}
+/* (Assited with ChatGPT) Make <button> and <a> visually identical */
 
-select {
-    width: 100%;
-    padding: 8px;
-}
+.btn,
+.btn:link,
+.btn:visited {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-.start-btn {
-    background-color: #38bdf8;
-    color: black;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
+    padding: 12px 30px;
     font-size: 16px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    line-height: 1;
+
+    color: white;
+    text-decoration: none;
+
+    border: none;
+    border-radius: 10px;
+
+    background: linear-gradient(135deg, #3b82f6, #6366f1);
     cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+}
+
+input[type="text"],
+input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #334155;
+    background: #0f172a;
+    color: #e2e8f0;
+    margin-top: 8px;
+    outline: none;
     transition: 0.2s;
 }
 
-.start-btn:hover {
-    background-color: #0ea5e9;
-}
-
-.btn {
-    display: inline-block;
-    padding: 10px 15px;
-    background-color: #ccc;
-    border: none;
-    border-radius: 5px;
-    color: black;
-    cursor: pointer;
-    text-decoration: none;
-    font-size: 14px;
-    font-family: inherit;
+input[type="text"]:focus,
+input[type="file"]:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
 }
 
 .option-group {
@@ -65,20 +87,37 @@ select {
 }
 
 .option {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    background: #0f172a;
     padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 10px;
+    border: 1px solid #334155;
     cursor: pointer;
     transition: 0.2s;
 }
 
 .option:hover {
-    background-color: #f1f5f9;
+    border-color: #3b82f6;
+    background: #1e293b;
 }
 
 .option input {
-    accent-color: #38bdf8;
+    margin-right: 10px;
+}
+
+.score-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #334155;
+}
+
+.section {
+    margin-top: 25px;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
 }

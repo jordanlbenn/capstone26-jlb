@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
+
 <body>
 
 <div class="container">
@@ -25,7 +25,7 @@
         </ul>
     </div>
 
-    <!-- Score Breakdown -->
+    <!-- Score -->
     <div class="section">
         <h3>Score Breakdown:</h3>
 
@@ -55,51 +55,70 @@
         </div>
     </div>
 
-    <!-- Buttons -->
+    <!-- Navigation -->
     <div class="button-group">
         <a href="{{ url_for('home') }}" class="btn">Start Over</a>
+        <a href="/decrypt" class="btn">Go to Decrypt Page</a>
     </div>
+
 </div>
 
-<h3>Apply Encryption</h3>
+<div class="container">
+    <h3>Apply Encryption</h3>
 
-<form action="{{ url_for('process_file') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ url_for('process_file') }}" method="POST" enctype="multipart/form-data">
 
-    <!-- File Upload -->
-    <label>Select File:</label>
-    <input type="file" name="file" required>
+        <!-- quiz_id -->
+        <input type="hidden" name="quiz_id" value="{{ quiz_id }}">
 
-    <br><br>
+        <!-- File Upload -->
+        <label>Select File:</label><br>
+        <input type="file" name="file" required>
 
-    <!-- Encryption Choice -->
-    <label>Choose Encryption Method:</label>
+        <br><br>
 
-    <div class="option-group">
-        <label class="option">
-            <input type="radio" name="method" value="{{ method }}" checked>
-            <span>Use Recommended ({{ method }})</span>
-        </label>
+        <!-- Encryption Options -->
+        <label>Choose Encryption Method:</label>
 
-        <label class="option">
-            <input type="radio" name="method" value="Lightweight Encryption">
-            <span>Lightweight Encryption</span>
-        </label>
+        <div class="option-group">
 
-        <label class="option">
-            <input type="radio" name="method" value="Standard AES Encryption">
-            <span>Standard AES</span>
-        </label>
+            <label class="option">
+                <input type="radio" name="method" value="{{ method }}" checked>
+                <span>Use Recommended ({{ method }})</span>
+            </label>
 
-        <label class="option">
-            <input type="radio" name="method" value="Hybrid Encryption (AES + RSA)">
-            <span>Hybrid Encryption</span>
-        </label>
-    </div>
+            <label class="option">
+                <input type="radio" name="method" value="Lightweight Encryption">
+                <span>Lightweight Encryption</span>
+            </label>
 
-    <br>
+            <label class="option">
+                <input type="radio" name="method" value="Standard AES Encryption">
+                <span>Standard AES</span>
+            </label>
 
-    <button type="submit" class="btn">Encrypt File</button>
-</form>
+            <label class="option">
+                <input type="radio" name="method" value="Hybrid Encryption (AES + RSA)">
+                <span>Hybrid Encryption</span>
+            </label>
+
+        </div>
+
+        <br>
+
+        <!-- Key Input -->
+        <label>Enter Encryption Key</label>
+        <input type="text" name="key" placeholder="Enter secure key..." required>
+        <br><br>
+
+        <!--Submit Button -->
+        <div class="button-group">
+            <button type="submit" class="btn">Encrypt File</button>
+            <a href="/decrypt" class="btn">Decrypt File</a>
+        </div>
+        
+    </form>
+</div>
 
 </body>
 </html>
