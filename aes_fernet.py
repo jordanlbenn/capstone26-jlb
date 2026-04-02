@@ -1,21 +1,16 @@
-# aes.py
+# aes_fernet.py
 from cryptography.fernet import Fernet
 import base64
 import hashlib
 import os
 
 def derive_key(password):
-    """
-    Derive a 32-byte key from password for Fernet.
-    """
+
     hashed = hashlib.sha256(password.encode()).digest()
     return base64.urlsafe_b64encode(hashed)
 
 def encrypt_aes_file(filepath, password):
-    """
-    Encrypt a file using Fernet AES encryption with a password.
-    Returns path to encrypted file.
-    """
+
     key = derive_key(password)
     cipher = Fernet(key)
 
@@ -35,10 +30,6 @@ def encrypt_aes_file(filepath, password):
     return encrypted_path
 
 def decrypt_aes_file(filepath, password):
-    """
-    Decrypt a file encrypted with encrypt_aes_file using the same password.
-    Returns path to decrypted file.
-    """
     key = derive_key(password)
     cipher = Fernet(key)
 

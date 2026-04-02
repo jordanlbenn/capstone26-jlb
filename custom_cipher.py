@@ -1,4 +1,4 @@
-# xor_module.py
+# xor
 import base64
 import os
 
@@ -35,9 +35,6 @@ def decrypt(data, key_bytes, rounds=5):
 
 # File-based functions for Flask
 def encrypt_xor_file(filepath, key):
-    """
-    Encrypt a file using XOR cipher with multiple rounds.
-    """
     key_bytes = key.encode()
 
     with open(filepath, 'rb') as f:
@@ -56,9 +53,6 @@ def encrypt_xor_file(filepath, key):
     return encrypted_path
 
 def decrypt_xor_file(filepath, key):
-    """
-    Decrypt a file encrypted by encrypt_xor_file.
-    """
     key_bytes = key.encode()
 
     with open(filepath, 'rb') as f:

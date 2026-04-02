@@ -8,7 +8,11 @@ import json
 
 # Encryption imports
 from custom_cipher import encrypt_xor_file, decrypt_xor_file
-from aes_test_fernet import encrypt_aes_file, decrypt_aes_file 
+from aes_fernet import encrypt_aes_file, decrypt_aes_file 
+from aes_gcm import encrypt_aes_gcm_file, decrypt_aes_gcm_file
+from hybrid_aes_rsa import encrypt_hybrid_file, decrypt_hybrid_file
+
+
 
 app = Flask(__name__)
 app.secret_key = 'test_secret_key'
@@ -26,6 +30,8 @@ os.makedirs("decrypted", exist_ok=True)
 @app.route('/')
 def home():
     return render_template('main_page.html')
+
+
 
 #Quiz Steps
 @app.route('/quiz/step1', methods=['GET', 'POST'])
@@ -59,13 +65,23 @@ def step3():
 def step4():
     if request.method == 'POST':
         session['compliance'] = request.form.get('compliance')
-        session['addsecurity'] = request.form.get('addsecurity')
         return redirect(url_for('result'))
     return render_template('step4.html')
 
 #Results Page
 @app.route('/quiz/result')
 def result():
+    direct = request.args.get('direct')
+
+    if direct == 'true':
+        return render_template(
+        'result.html',
+        show_recommendation=False,
+        method=None,
+        scores={},
+        reasons=[]
+    )
+    
     # Get inputs
     use_case = session.get('use_case')
     sensitivity = session.get('sensitivity')
@@ -77,7 +93,6 @@ def result():
     hardware = session.get('hardware')
     dataVolume = session.get('dataVolume')
     compliance = session.get('compliance')
-    addsecurity = session.get('addsecurity')
 
     #Scoring
     scores = {
@@ -85,7 +100,6 @@ def result():
         "Standard AES Encryption": 0,
         "High-Security AES": 0,
         "Hybrid Encryption (AES + RSA)": 0,
-        "Post-Quantum Ready Encryption": 0
     }
 
     reasons = []
@@ -109,10 +123,6 @@ def result():
         scores["High-Security AES"] += 2
         reasons.append("Compliance requirements favor strong encryption")
 
-    if addsecurity == "postquantum":
-        scores["Post-Quantum Ready Encryption"] += 4
-        reasons.append("Post-quantum requirement selected")
-
     #Pick best
     method = max(scores, key=scores.get)
 
@@ -130,8 +140,7 @@ def result():
         "performance": performance,
         "hardware": hardware,
         "dataVolume": dataVolume,
-        "compliance": compliance,
-        "addsecurity": addsecurity
+        "compliance": compliance
     }
 
     cursor.execute('''
@@ -173,7 +182,10 @@ def process_file():
         result_path = encrypt_aes_file(filepath, key)
 
     elif method == "Hybrid Encryption (AES + RSA)":
-        result_path = encrypt_aes_file(filepath, key)  # placeholder
+        result_path = encrypt_hybrid_file(filepath, key)
+
+    elif method == "High-Security AES Encryption":
+        result_path = encrypt_aes_gcm_file(filepath, key)
 
     else:
         result_path = filepath
@@ -211,6 +223,12 @@ def decrypt_file_page():
             elif method == "Standard AES Encryption":
                 result_path = decrypt_aes_file(filepath, key)
 
+            elif method == "Hybrid Encryption (AES + RSA)":
+                result_path = decrypt_hybrid_file(filepath, key)
+        
+            elif method == "High-Security AES Encryption":
+                result_path = decrypt_aes_gcm_file(filepath, key)
+ 
             else:
                 return "Invalid method"
 
@@ -220,6 +238,24 @@ def decrypt_file_page():
         return send_file(result_path, as_attachment=True)
 
     return render_template('decrypt.html')
+
+@app.route('/encrypt', methods=['GET', 'POST'])
+def encrypt_direct():
+    if request.method == 'POST':
+        file = request.files['file']
+        method = request.form['method']
+        key = request.form['key']
+
+        filepath = f"uploads/{file.filename}"
+        file.save(filepath)
+
+        
+        return render_template(
+            'result.html',
+            show_recommendation=False,
+            method=method,
+            result="File encrypted successfully!"
+        )
 
 #Run App
 if __name__ == "__main__":
