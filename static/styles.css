@@ -16,7 +16,7 @@ body {
     backdrop-filter: blur(10px);
 }
 
-h1, h2, h3 {
+h1, h2, h3{
     text-align: center;
     color: #f1f5f9;
 }

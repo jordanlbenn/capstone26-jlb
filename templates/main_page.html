@@ -1,15 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Web-Based Encryption Decision and Implementation System</title>
-    <link rel="stylesheet" type="text/css"href="static\styles.css">
+    <link rel="stylesheet" type="text/css" href="static\styles.css">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 
-<body>
+<header>
+    <img src="static\EDIS.png" alt="Logo"
+         style="display: block; margin: 0 auto; width: 200px; padding-top: 10px;">
+</header> 
 
+<body>
 <div class="wiz-container">
     <h1>Encryption Decision and Implementation System</h1>
-    <h2>Enterprise-grade cryptographic algorithm selection for security professionals</h2>
+    <h3>Educational tool for exploring encryption methods</h3>
+    <p style="text-align: center;">Welcome to my web-based encryption decision and implementation system! 
+    This platform is designed to help users understand the importance of encryption, 
+    explore different encryption methods, and see how they can be applied in real-world scenarios. 
+    Whether you're a student, educator, or just curious about encryption, this tool provides an interactive 
+    way to learn and experiment with various encryption techniques.</p>
+
+    <p style="text-align: center;">To get started, you can take a quiz that will assess your needs and recommend an appropriate encryption method. 
+    Alternatively, you can skip the quiz and directly apply a simple encryption method to see how it works.</p>
 </div>
 
 <div class="home-buttons">
@@ -17,4 +31,21 @@
     <!-- Skip quiz and apply encryption -->
     <a href="{{ url_for('result', direct='true') }}" class="btn">Encrypt Directly</a>
 </div>
+
+<br></br>
+
+<h3>Want to learn more about this project?</h3>
+<p style="text-align: center;">Check out the source code on GitHub! Or the WordPress blog about how this project came about.</p>
+
+<div class="home-buttons">
+    <a href="https://github.com/jordanlbenn/capstone26-jlb" class="btn">GitHub</a>
+    <a href="https://jlbenncapstone.wordpress.com/" class="btn">WordPress Blog</a>
+</div>
+<br></br>
+<br></br>
+<h4>Disclaimer</h4>
+<p>This project is educational only. Do not use for real production secrets. Implementations are simplified and unreviewed. 
+Always consult vetted libraries and security experts for real systems.</p>
+
 </body>
+</html>

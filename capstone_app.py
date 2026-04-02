@@ -115,7 +115,6 @@ def result():
 
     if adversary in ["advanced", "quantum"]:
         scores["Hybrid Encryption (AES + RSA)"] += 2
-        scores["Post-Quantum Ready Encryption"] += 3
         reasons.append("Advanced adversary model detected")
 
     if compliance in ["federal", "nist", "iso"]:
