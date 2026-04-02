@@ -6,8 +6,9 @@ body {
 }
 
 .container {
-    max-width: 800px;
-    margin: 40px auto;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 30px;
     background: rgba(30, 41, 59, 0.8);
     border-radius: 16px;
@@ -29,7 +30,13 @@ h1, h2, h3 {
     border: 1px solid #334155;
 }
 
-/* (Assited with ChatGPT) Make <button> and <a> visually identical */
+.home-buttons {
+    display: flex;
+    justify-content: center;  
+    align-items: center;
+    gap: 20px;               
+    margin-top: 30px;
+}
 
 .btn,
 .btn:link,
