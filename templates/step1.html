@@ -7,10 +7,12 @@
 </head>
 
 <body>
-<h2>Step 1: Use Case & Environment</h2>
-
+<div class="container">
 <form method="POST">
+<h2>Enter Your Name</h2>
+    <input type="text" name="username" placeholder="Enter your name" required>
 
+    <h2>Step 1: Use Case & Environment</h2>
     <!-- Use Case -->
     <label><strong>Use Case</strong></label>
     <div class="option-group">
@@ -81,6 +83,7 @@
 
 
 <div class="button-group">
+    <a href="{{ url_for('home') }}" class="btn">Go Home</a>
     <button type="submit" class="btn">Next</button>
 </div>
 

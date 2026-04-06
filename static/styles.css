@@ -128,3 +128,14 @@ input[type="file"]:focus {
     gap: 15px;
     margin-top: 20px;
 }
+
+.table-container {
+    max-height: 400px; /* adjust height as needed */
+    overflow-y: auto;  /* vertical scrollbar */
+    border: 1px solid #ddd; /* optional, makes it look like a box */
+}
+
+.table-container table {
+    width: 100%;
+    border-collapse: collapse;
+}

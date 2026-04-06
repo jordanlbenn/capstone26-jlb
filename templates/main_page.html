@@ -7,13 +7,13 @@
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 
+<div class="container">
 <header>
     <img src="static\EDIS.png" alt="Logo"
          style="display: block; margin: 0 auto; width: 200px; padding-top: 10px;">
 </header> 
 
 <body>
-<div class="wiz-container">
     <h1>Encryption Decision and Implementation System</h1>
     <h3>Educational tool for exploring encryption methods</h3>
     <p style="text-align: center;">Welcome to my web-based encryption decision and implementation system! 
@@ -26,10 +26,11 @@
     Alternatively, you can skip the quiz and directly apply a simple encryption method to see how it works.</p>
 </div>
 
+
 <div class="home-buttons">
     <a href="/quiz/step1" class="btn">Start Quiz</a>
     <!-- Skip quiz and apply encryption -->
-    <a href="{{ url_for('result', direct='true') }}" class="btn">Encrypt Directly</a>
+    <a href="/encrypt_direct" class="btn">Encrypt Directly</a>
 </div>
 
 <br></br>
@@ -48,4 +49,5 @@
 Always consult vetted libraries and security experts for real systems.</p>
 
 </body>
+
 </html>
