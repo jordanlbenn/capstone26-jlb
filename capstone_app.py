@@ -131,20 +131,46 @@ def result():
     if sensitivity in ["confidential", "high"]:
         scores["Hybrid Encryption (AES + RSA)"] += 3
         scores["Standard AES Encryption"] += 1
-        reasons.append("High data sensitivity detected")
+        reasons.append("Your data was identified as highly sensitive or confidential. "
+        "This means the information likely contains personal records, financial details, "
+        "business-critical files, or other content where unauthorized access could cause "
+        "serious harm. Hybrid Encryption (AES + RSA) is strongly favored here because it "
+        "combines AES for fast, secure file encryption with RSA for secure key exchange, "
+        "creating an additional layer of protection for safeguarding sensitive assets. "
+        "Standard AES Encryption also earns consideration because it is widely trusted, "
+        "cryptographically strong, and highly effective for protecting confidential data."
+)
 
     if performance == "optimized":
         scores["Lightweight Encryption"] += 3
-        reasons.append("Performance-focused requirement")
+        reasons.append("You prioritized performance and speed in your requirements. "
+        "This suggests encryption may need to run efficiently on lower-powered systems, "
+        "process large volumes of data quickly, or minimize delays during file operations. "
+        "Lightweight Encryption is recommended in this case because it reduces computational "
+        "overhead, making it suitable for educational demonstrations, rapid processing, "
+        "or environments where efficiency matters more than maximum cryptographic strength.")
 
-    if adversary in ["advanced", "quantum"]:
+    if adversary in ["advanced"]:
         scores["Hybrid Encryption (AES + RSA)"] += 3
-        reasons.append("Advanced adversary model detected")
+        reasons.append("Your threat model assumes an advanced attacker or highly capable adversary. "
+        "This includes scenarios where attackers may use sophisticated intrusion methods, "
+        "target encryption keys directly, or exploit weak key-sharing mechanisms. "
+        "Hybrid Encryption (AES + RSA) is strongly recommended because RSA secures the "
+        "exchange of encryption keys while AES protects the actual file contents. "
+        "This layered design improves resilience against interception, unauthorized "
+        "decryption attempts, and targeted attacks on sensitive communications.")
 
     if compliance in ["federal", "nist", "iso"]:
         scores["Standard AES Encryption"] += 3
         scores["Hybrid Encryption (AES + RSA)"] += 1
-        reasons.append("Compliance requirements favor strong encryption")
+        reasons.append("Your environment includes compliance, regulatory, or industry security standards "
+        "such as federal guidelines, NIST recommendations, or ISO frameworks. "
+        "These standards typically favor well-established, thoroughly validated encryption "
+        "methods with strong security track records. Standard AES Encryption is highly "
+        "recommended because AES is widely accepted across professional, enterprise, "
+        "and government systems for protecting sensitive information. "
+        "Hybrid Encryption also receives some consideration since combining AES with RSA "
+        "can further strengthen secure key management in regulated workflows.")
 
     # Pick best method
     method = max(scores, key=scores.get)
