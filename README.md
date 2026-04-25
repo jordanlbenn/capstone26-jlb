@@ -1,10 +1,12 @@
 # capstone26-jlb
 
-### Author: Jordan Bennett
+Author: Jordan Bennett
 - Senior CIS&T Student (Cybersecurity Minor) at the University of Pittsburgh-Bradford
 - Graduating May 2026
 
-### Advisor: Dr. Ken Wang
+Go checkout my WordPress blog that documents the phases before the completion of this project: https://jlbenncapstone.wordpress.com/
+
+
 
 # EDIS – Encryption Decision and Implementation System
 
